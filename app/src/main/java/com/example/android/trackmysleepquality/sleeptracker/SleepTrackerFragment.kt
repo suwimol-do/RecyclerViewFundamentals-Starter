@@ -65,6 +65,8 @@ class SleepTrackerFragment : Fragment() {
         val adapter = SleepNightAdapter()
         binding.sleepList.adapter = adapter
 
+
+
         // Get a reference to the ViewModel associated with this fragment.
         val sleepTrackerViewModel =
                 ViewModelProvider(
@@ -90,6 +92,12 @@ class SleepTrackerFragment : Fragment() {
                 // Reset state to make sure the toast is only shown once, even if the device
                 // has a configuration change.
                 sleepTrackerViewModel.doneShowingSnackbar()
+            }
+        })
+
+        sleepTrackerViewModel.nights.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.data = it
             }
         })
 
